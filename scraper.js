@@ -377,19 +377,15 @@ const map = [
 ];
 
 // get data
-const _get_prices = async () => {
+const get_prices = async () => {
   const prices = {};
 
   try {
     for (const [url, prop_sel] of map) {
-      const { data } = await axios({
-        method: "GET",
-        url: url,
-      });
+      const { data } = await axios({ method: "GET", url: url });
       const $ = cheerio.load(data);
 
       for (const [prop, sel] of prop_sel) {
-        const $ = cheerio.load(data);
         prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
       }
     }
@@ -398,24 +394,6 @@ const _get_prices = async () => {
   } catch (e) {
     console.error("ERROR ❌: ", e.message);
     return null;
-  }
-  return prices;
-};
-
-const get_prices = async () => {
-  const prices = {};
-
-  for (const [url, prop_sel] of map) {
-    const { data } = await axios({
-      method: "GET",
-      url: url,
-    });
-    const $ = cheerio.load(data);
-
-    for (const [prop, sel] of prop_sel) {
-      const $ = cheerio.load(data);
-      prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
-    }
   }
   return prices;
 };
