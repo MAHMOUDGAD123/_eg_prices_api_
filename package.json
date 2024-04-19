@@ -1,0 +1,17 @@
+{
+  "name": "eg_prices",
+  "version": "1.0.0",
+  "description": "app to get the prices in Egypt",
+  "main": "scraper.js",
+  "scripts": {
+    "start": "node scraper.js"
+  },
+  "keywords": [],
+  "author": "MG",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "cheerio": "^1.0.0-rc.12",
+    "express": "^4.19.2"
+  }
+}
