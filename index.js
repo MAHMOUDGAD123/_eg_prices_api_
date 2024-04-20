@@ -411,7 +411,7 @@ const _get_prices = async () => {
 const make_request = (url) =>
   new Promise((resolve, reject) => {
     request(url, (err, res, html) => {
-      if (err && res.statusCode !== 200) reject(err);
+      if (err) reject(err);
       else resolve(html);
     });
   });
