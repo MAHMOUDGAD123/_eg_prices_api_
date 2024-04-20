@@ -411,7 +411,7 @@ const _get_prices = async () => {
 const make_request = (url) =>
   new Promise((resolve, reject) => {
     request(url, (err, res, html) => {
-      if (err) reject(err);
+      if (err && res.statusCode !== 200) reject(err);
       else resolve(html);
     });
   });
@@ -422,6 +422,7 @@ const get_prices = async () => {
   try {
     for (const [url, prop_sel] of map) {
       const html = await make_request(url);
+      console.log(html);
       const $ = cheerio.load(html);
 
       for (const [prop, sel] of prop_sel) {
