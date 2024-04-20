@@ -397,14 +397,17 @@ const get_prices = async () => {
   return prices;
 };
 
-app.get("/", async (req, res) => {
+const get_handler = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Cache-Control",
+    "no-cache, no-store, max-age=0, must-revalidate"
+  );
   res.status(200).json(await get_prices());
-});
-app.get("/prices", async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.status(200).json(await get_prices());
-});
+};
+
+app.get("/", get_handler);
+app.get("/prices", get_handler);
 
 app.listen(port, () => {
   console.log("Listening on port: " + port);
