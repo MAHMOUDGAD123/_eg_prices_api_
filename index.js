@@ -422,11 +422,12 @@ const get_prices = async () => {
   try {
     for (const [url, prop_sel] of map) {
       const html = await make_request(url);
-      console.log(html);
       const $ = cheerio.load(html);
 
       for (const [prop, sel] of prop_sel) {
-        prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
+        const val = Number.parseFloat($(sel).text().replace(",", ""));
+        console.log(val);
+        prices[prop] = val;
       }
     }
 
