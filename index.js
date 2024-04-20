@@ -1,5 +1,6 @@
 const axios = require("axios");
-const cheerio = require("cheerio");
+let cheerio = require("cheerio");
+if (typeof cheerio != "function") cheerio = require("cheerio").default;
 const app = require("express")();
 const port = process.env.PORT || 3000;
 
@@ -397,7 +398,7 @@ const get_prices = async () => {
   return prices;
 };
 
-const get_handler = async (req, res) => {
+const handler = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Cache-Control",
@@ -406,8 +407,8 @@ const get_handler = async (req, res) => {
   res.status(200).json(await get_prices());
 };
 
-app.get("/", get_handler);
-app.get("/prices", get_handler);
+app.get("/", handler);
+app.get("/prices", handler);
 
 app.listen(port, () => {
   console.log("Listening on port: " + port);
