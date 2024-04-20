@@ -2,9 +2,9 @@
   "name": "eg_prices",
   "version": "1.0.0",
   "description": "app to get the prices in Egypt",
-  "main": "index.js",
+  "main": "scraper.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node scraper.js"
   },
   "keywords": [],
   "author": "MG",
