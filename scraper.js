@@ -393,7 +393,6 @@ const get_prices = async () => {
     console.error("SUCCESS ✅");
   } catch (e) {
     console.error("ERROR ❌: ", e.message);
-    return null;
   }
   return prices;
 };
