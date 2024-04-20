@@ -382,22 +382,22 @@ const get_prices = async () => {
   const prices = {};
 
   try {
-    for (const [url, prop_sel] of map) {
-      const { data } = await axios({
-        method: "GET",
-        url: url,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      });
-      const $ = cheerio.load(data);
+    // for (const [url, prop_sel] of map) {
+    //   const { data } = await axios({
+    //     method: "GET",
+    //     url: url,
+    //     withCredentials: true,
+    //     headers: {
+    //       "Access-Control-Allow-Origin": "*",
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   const $ = cheerio.load(data);
 
-      for (const [prop, sel] of prop_sel) {
-        prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
-      }
-    }
+    //   for (const [prop, sel] of prop_sel) {
+    //     prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
+    //   }
+    // }
 
     console.error("SUCCESS ✅");
   } catch (e) {
