@@ -420,15 +420,25 @@ const get_prices = async () => {
   const prices = {};
 
   try {
-    for (const [url, prop_sel] of map) {
-      const html = await make_request(url);
-      const $ = cheerio.load(html);
+    // for (const [url, prop_sel] of map) {
+    //   const html = await make_request(url);
+    //   const $ = cheerio.load(html);
 
-      for (const [prop, sel] of prop_sel) {
-        const val = Number.parseFloat($(sel).text().replace(",", ""));
-        console.log(val);
-        prices[prop] = val;
-      }
+    //   for (const [prop, sel] of prop_sel) {
+    //     const val = Number.parseFloat($(sel).text().replace(",", ""));
+    //     console.log(val);
+    //     prices[prop] = val;
+    //   }
+    // }
+
+    const url = "https://egcurrency.com/en/country/egypt";
+    const html = await make_request(url);
+    const $ = cheerio.load(html);
+
+    for (const [prop, sel] of map[0][1]) {
+      const val = Number.parseFloat($(sel).text().replace(",", ""));
+      console.log(val);
+      prices[prop] = val;
     }
 
     console.error("SUCCESS ✅");
