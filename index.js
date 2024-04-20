@@ -1,6 +1,7 @@
 const axios = require("axios");
 let cheerio = require("cheerio");
 const app = require("express")();
+const cors = require("cors");
 const port = process.env.PORT || 3000;
 
 // url, parseFloatFlag => [ [porperty, selection], .....]
@@ -382,7 +383,15 @@ const get_prices = async () => {
 
   try {
     for (const [url, prop_sel] of map) {
-      const { data } = await axios({ method: "GET", url: url });
+      const { data } = await axios({
+        method: "GET",
+        url: url,
+        // headers: {
+        //   "Access-Control-Allow-Origin": "*",
+        //   "Content-Type": "application/json",
+        // },
+        // withCredentials: true,
+      });
       const $ = cheerio.load(data);
 
       for (const [prop, sel] of prop_sel) {
@@ -398,14 +407,15 @@ const get_prices = async () => {
 };
 
 const handler = async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Cache-Control",
-    "no-cache, no-store, max-age=0, must-revalidate"
-  );
+  // res.setHeader("Access-Control-Allow-Origin", "*");
+  // res.setHeader(
+  //   "Cache-Control",
+  //   "no-cache, no-store, max-age=0, must-revalidate"
+  // );
   res.status(200).json(await get_prices());
 };
 
+app.use(cors());
 app.get("/", handler);
 app.get("/prices", handler);
 
