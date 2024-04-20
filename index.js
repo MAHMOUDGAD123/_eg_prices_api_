@@ -425,13 +425,7 @@ const get_prices = async () => {
       const $ = cheerio.load(html);
 
       for (const [prop, sel] of prop_sel) {
-        const txt = $(sel).text();
-        const $txt = txt.replace(",", "");
-        const val = Number.parseFloat($txt);
-        console.log(txt);
-        console.log($txt);
-        console.log(val);
-        prices[prop] = val;
+        prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
       }
     }
 
