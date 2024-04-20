@@ -1,4 +1,5 @@
-const axios = require("axios");
+// const axios = require("axios");
+const request = require("request");
 let cheerio = require("cheerio");
 const app = require("express")();
 const cors = require("cors");
@@ -378,36 +379,55 @@ const map = [
 ];
 
 // get data
+const _get_prices = async () => {
+  const prices = {};
+
+  try {
+    for (const [url, prop_sel] of map) {
+      const { data } = await axios({
+        method: "GET",
+        url: url,
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      });
+      const $ = cheerio.load(data);
+
+      for (const [prop, sel] of prop_sel) {
+        prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
+      }
+    }
+
+    console.error("SUCCESS ✅");
+  } catch (e) {
+    console.error("ERROR ❌: ", e.message);
+    return null;
+  }
+  return prices;
+};
+
+const make_request = (url) =>
+  new Promise((resolve, reject) => {
+    request(url, (err, res, html) => {
+      if (err && res.statusCode !== 200) reject(err);
+      else resolve(html);
+    });
+  });
+
 const get_prices = async () => {
   const prices = {};
 
   try {
-    // for (const [url, prop_sel] of map) {
-    //   const { data } = await axios({
-    //     method: "GET",
-    //     url: url,
-    //     withCredentials: true,
-    //     headers: {
-    //       "Access-Control-Allow-Origin": "*",
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   const $ = cheerio.load(data);
+    for (const [url, prop_sel] of map) {
+      const html = await make_request(url);
+      const $ = cheerio.load(html);
 
-    //   for (const [prop, sel] of prop_sel) {
-    //     prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
-    //   }
-    // }
-
-    const { data } = await axios({
-      method: "GET",
-      url: "https://egcurrency.com/en/country/egypt",
-      withCredentials: true,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    });
+      for (const [prop, sel] of prop_sel) {
+        prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
+      }
+    }
 
     console.error("SUCCESS ✅");
   } catch (e) {
@@ -419,8 +439,6 @@ const get_prices = async () => {
 
 const handler = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Accept", "application/json");
-  res.setHeader("Accept-Encoding", "gzip, deflate, br");
   res.setHeader(
     "Cache-Control",
     "no-cache, no-store, max-age=0, must-revalidate"
