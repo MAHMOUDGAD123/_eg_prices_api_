@@ -386,11 +386,11 @@ const get_prices = async () => {
       const { data } = await axios({
         method: "GET",
         url: url,
-        // headers: {
-        //   "Access-Control-Allow-Origin": "*",
-        //   "Content-Type": "application/json",
-        // },
-        // withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
       });
       const $ = cheerio.load(data);
 
@@ -407,11 +407,11 @@ const get_prices = async () => {
 };
 
 const handler = async (req, res) => {
-  // res.setHeader("Access-Control-Allow-Origin", "*");
-  // res.setHeader(
-  //   "Cache-Control",
-  //   "no-cache, no-store, max-age=0, must-revalidate"
-  // );
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Cache-Control",
+    "no-cache, no-store, max-age=0, must-revalidate"
+  );
   res.status(200).json(await get_prices());
 };
 
