@@ -1,6 +1,5 @@
 const axios = require("axios");
 let cheerio = require("cheerio");
-if (typeof cheerio != "function") cheerio = require("cheerio").default;
 const app = require("express")();
 const port = process.env.PORT || 3000;
 
