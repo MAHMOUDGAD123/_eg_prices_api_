@@ -419,6 +419,8 @@ const get_prices = async () => {
 
 const handler = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Accept", "application/json");
+  res.setHeader("Accept-Encoding", "gzip, deflate, br");
   res.setHeader(
     "Cache-Control",
     "no-cache, no-store, max-age=0, must-revalidate"
