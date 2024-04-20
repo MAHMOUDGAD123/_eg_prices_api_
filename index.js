@@ -399,6 +399,16 @@ const get_prices = async () => {
     //   }
     // }
 
+    const { data } = await axios({
+      method: "GET",
+      url: "https://egcurrency.com/en/country/egypt",
+      withCredentials: true,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+    });
+
     console.error("SUCCESS ✅");
   } catch (e) {
     console.error("ERROR ❌: ", e.message);
