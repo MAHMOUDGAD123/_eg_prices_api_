@@ -437,10 +437,18 @@ const get_prices = async () => {
 const handler = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
-    "Cache-Control",
-    "no-cache, no-store, max-age=0, must-revalidate"
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
   );
-  res.status(200).json(await _get_prices());
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "my-header,X-Requested-With,content-type,Authorization,cache-control"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+  res.status(200).json(await get_prices());
 };
 
 app.use(cors());
