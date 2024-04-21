@@ -1,6 +1,6 @@
 // const axios = require("axios");
 const request = require("request");
-let cheerio = require("cheerio");
+const cheerio = require("cheerio");
 const app = require("express")();
 const cors = require("cors");
 const port = process.env.PORT || 3000;
@@ -388,10 +388,7 @@ const _get_prices = async () => {
         method: "GET",
         url: url,
         withCredentials: true,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
+        headers: { "Access-Control-Allow-Origin": "*" },
       });
       const $ = cheerio.load(data);
 
@@ -411,8 +408,9 @@ const _get_prices = async () => {
 const make_request = (url) =>
   new Promise((resolve, reject) => {
     request(url, (err, res, html) => {
-      if (err && res.statusCode !== 200) reject(err);
-      else resolve(html);
+      // if (err && res.statusCode !== 200) reject(err);
+      // else resolve(html);
+      resolve(html);
     });
   });
 
