@@ -1,4 +1,4 @@
-// const axios = require("axios");
+const axios = require("axios");
 const request = require("request");
 const cheerio = require("cheerio");
 const app = require("express")();
@@ -378,19 +378,25 @@ const map = [
   ],
 ];
 
+const _make_request = (url) =>
+  new Promise(async (resolve, reject) => {
+    const response = await axios({
+      method: "GET",
+      url: url,
+      withCredentials: true,
+      headers: { "Access-Control-Allow-Origin": "*" },
+    });
+    resolve(response.data);
+  });
+
 // get data
 const _get_prices = async () => {
   const prices = {};
 
   try {
     for (const [url, prop_sel] of map) {
-      const { data } = await axios({
-        method: "GET",
-        url: url,
-        withCredentials: true,
-        headers: { "Access-Control-Allow-Origin": "*" },
-      });
-      const $ = cheerio.load(data);
+      const html = await _make_request(url);
+      const $ = cheerio.load(html);
 
       for (const [prop, sel] of prop_sel) {
         prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
@@ -408,9 +414,8 @@ const _get_prices = async () => {
 const make_request = (url) =>
   new Promise((resolve, reject) => {
     request(url, (err, res, html) => {
-      // if (err && res.statusCode !== 200) reject(err);
-      // else resolve(html);
-      resolve(html);
+      if (err || res.statusCode !== 200) resolve(null);
+      else resolve(html);
     });
   });
 
@@ -420,10 +425,13 @@ const get_prices = async () => {
   try {
     for (const [url, prop_sel] of map) {
       const html = await make_request(url);
-      const $ = cheerio.load(html);
 
-      for (const [prop, sel] of prop_sel) {
-        prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
+      if (html) {
+        const $ = cheerio.load(html);
+
+        for (const [prop, sel] of prop_sel) {
+          prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
+        }
       }
     }
 
@@ -441,7 +449,7 @@ const handler = async (req, res) => {
     "Cache-Control",
     "no-cache, no-store, max-age=0, must-revalidate"
   );
-  res.status(200).json(await get_prices());
+  res.status(200).json(await _get_prices());
 };
 
 app.use(cors());
