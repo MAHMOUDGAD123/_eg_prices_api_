@@ -378,25 +378,19 @@ const map = [
   ],
 ];
 
-const _make_request = (url) =>
-  new Promise(async (resolve, reject) => {
-    const response = await axios({
-      method: "GET",
-      url: url,
-      withCredentials: true,
-      headers: { "Access-Control-Allow-Origin": "*" },
-    });
-    resolve(response.data);
-  });
-
 // get data
 const _get_prices = async () => {
   const prices = {};
 
   try {
     for (const [url, prop_sel] of map) {
-      const html = await _make_request(url);
-      const $ = cheerio.load(html);
+      const { data } = await axios({
+        method: "GET",
+        url: url,
+        withCredentials: true,
+        headers: { "Access-Control-Allow-Origin": "*" },
+      });
+      const $ = cheerio.load(data);
 
       for (const [prop, sel] of prop_sel) {
         prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
