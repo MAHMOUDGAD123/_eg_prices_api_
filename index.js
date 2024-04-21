@@ -384,16 +384,21 @@ const _get_prices = async () => {
 
   try {
     for (const [url, prop_sel] of map) {
-      const { data } = await axios({
+      const response = await axios({
         method: "GET",
         url: url,
         withCredentials: true,
         headers: { "Access-Control-Allow-Origin": "*" },
       });
-      const $ = cheerio.load(data);
 
-      for (const [prop, sel] of prop_sel) {
-        prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
+      console.log(response.status, " - ", response.statusText);
+
+      if (response.status === 200) {
+        const $ = cheerio.load(response.data);
+
+        for (const [prop, sel] of prop_sel) {
+          prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
+        }
       }
     }
 
