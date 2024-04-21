@@ -411,7 +411,7 @@ const _get_prices = async () => {
 };
 
 const make_request = (url) =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     request(url, (err, res, html) => {
       if (err || res.statusCode !== 200) resolve(null);
       else resolve(html);
@@ -448,7 +448,7 @@ const handler = async (req, res) => {
     "Cache-Control",
     "no-cache, no-store, max-age=0, must-revalidate"
   );
-  res.status(200).json(await _get_prices());
+  res.status(200).json(await get_prices());
 };
 
 app.use(cors());
