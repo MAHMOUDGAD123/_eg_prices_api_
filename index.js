@@ -384,14 +384,7 @@ const _get_prices = async () => {
 
   try {
     for (const [url, prop_sel] of map) {
-      const response = await axios({
-        method: "GET",
-        url: url,
-        withCredentials: true,
-        headers: { "Access-Control-Allow-Origin": "*" },
-      });
-
-      console.log(response.status, " - ", response.statusText);
+      const response = await axios({ method: "GET", url: url });
 
       if (response.status === 200) {
         const $ = cheerio.load(response.data);
@@ -433,7 +426,6 @@ const get_prices = async () => {
         }
       }
     }
-
     console.error("SUCCESS ✅");
   } catch (e) {
     console.error("ERROR ❌: ", e.message);
@@ -448,7 +440,7 @@ const handler = async (req, res) => {
     "Cache-Control",
     "no-cache, no-store, max-age=0, must-revalidate"
   );
-  res.status(200).json(await get_prices());
+  res.status(200).json(await _get_prices());
 };
 
 app.use(cors());
