@@ -385,6 +385,7 @@ const make_request = (url) =>
         console.log("Request Error ❌:", err);
         resolve(null);
       } else {
+        console.log("Status Code:", res.statusCode);
         console.log("Request Done ✅");
         resolve(html);
       }
