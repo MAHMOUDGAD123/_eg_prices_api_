@@ -382,9 +382,11 @@ const make_request = (url) =>
   new Promise((resolve) => {
     request(url, (err, res, html) => {
       if (err || res.statusCode !== 200) {
-        console.log(err.message);
+        console.log(err);
         resolve(null);
-      } else resolve(html);
+      } else {
+        resolve(html);
+      }
     });
   });
 
