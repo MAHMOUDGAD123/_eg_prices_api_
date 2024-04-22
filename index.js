@@ -1,4 +1,3 @@
-const axios = require("axios");
 const request = require("request");
 const cheerio = require("cheerio");
 const app = require("express")();
@@ -379,30 +378,6 @@ const map = [
 ];
 
 // get data
-const _get_prices = async () => {
-  const prices = {};
-
-  try {
-    for (const [url, prop_sel] of map) {
-      const response = await axios({ method: "GET", url: url });
-
-      if (response.status === 200) {
-        const $ = cheerio.load(response.data);
-
-        for (const [prop, sel] of prop_sel) {
-          prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
-        }
-      }
-    }
-
-    console.error("SUCCESS ✅");
-  } catch (e) {
-    console.error("ERROR ❌: ", e.message);
-    return null;
-  }
-  return prices;
-};
-
 const make_request = (url) =>
   new Promise((resolve) => {
     request(url, (err, res, html) => {
@@ -435,24 +410,25 @@ const get_prices = async () => {
 };
 
 const handler = async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "my-header,X-Requested-With,content-type,Authorization,cache-control"
-  );
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-  res.setHeader("Pragma", "no-cache");
-  res.setHeader("Expires", "0");
-  res.status(200).json(await get_prices());
+
+  const response = await get_prices();
+  const code = response ? 200 : 404;
+  res.status(code).json(response);
 };
 
 app.use(cors());
+
+app.all("/*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 app.get("/", handler);
+app.get("/prices", handler);
 app.get("/prices", handler);
 
 app.listen(port, () => {
