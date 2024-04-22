@@ -1,4 +1,4 @@
-const request = require("request");
+// const request = require("request");
 const cheerio = require("cheerio");
 const app = require("express")();
 const cors = require("cors");
@@ -378,26 +378,36 @@ const map = [
 ];
 
 // get data
-const make_request = (url) =>
+const _make_request = (url) =>
   new Promise((resolve) => {
     request(url, (err, res, html) => {
-      if (err) {
-        console.log("Request Error ❌:", err);
+      const status_code = res.statusCode;
+      console.log("Status Code:", status_code);
+      if (err || res.statusCode !== 200) {
         resolve(null);
       } else {
-        console.log("Status Code:", res.statusCode);
-        console.log("Request Done ✅");
+        console.log("Request Ok ✅");
         resolve(html);
       }
     });
   });
+
+const get_html = async (url) => {
+  const res = await fetch(url);
+  if (res.ok) {
+    const html = await res.text();
+    return html;
+  } else {
+    return null;
+  }
+};
 
 const get_prices = async () => {
   const prices = {};
 
   try {
     for (const [url, prop_sel] of map) {
-      const html = await make_request(url);
+      const html = await get_html(url);
 
       if (html) {
         const $ = cheerio.load(html);
@@ -416,23 +426,13 @@ const get_prices = async () => {
 };
 
 const handler = async (req, res) => {
-  res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-
   const response = await get_prices();
   const code = response ? 200 : 404;
   res.status(code).json(response);
 };
 
 app.use(cors());
-
-app.all("/*", function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
-
 app.get("/", handler);
 app.get("/prices", handler);
 app.get("/prices", handler);
