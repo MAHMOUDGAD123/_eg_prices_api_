@@ -381,8 +381,10 @@ const map = [
 const make_request = (url) =>
   new Promise((resolve) => {
     request(url, (err, res, html) => {
-      if (err || res.statusCode !== 200) resolve(null);
-      else resolve(html);
+      if (err || res.statusCode !== 200) {
+        console.log(err.message);
+        resolve(null);
+      } else resolve(html);
     });
   });
 
