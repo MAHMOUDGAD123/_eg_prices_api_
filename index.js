@@ -435,7 +435,7 @@ const live_handler = async (req, res) => {
 
 app.use(cors());
 app.get("/", normal_handler);
-app.get("/prices", normal_handler);
+// app.get("/prices", normal_handler);
 app.get("/live", live_handler);
 
 app.listen(port, () => {
