@@ -417,14 +417,14 @@ const get_live = async () => {
 };
 
 const prices_handler = async (req, res) => {
-  // res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   const response = await get_prices();
   const code = response ? 200 : 404;
   res.status(code).json(response);
 };
 
 const live_handler = async (req, res) => {
-  // res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   const response = await get_live();
   const code = response ? 200 : 404;
   res.status(code).json(response);
