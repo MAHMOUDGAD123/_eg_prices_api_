@@ -334,12 +334,11 @@ const prices_map = [
 const live_map = [
   // GOLD TV
   [
-    "https://www.tradingview.com/symbols/XAUUSD/",
+    "https://www.investing.com/currencies/xau-usd",
     [
-      ["gold_l_part", 'span[class^="last-JWoJqCpY"]'],
-      ["gold_r_part", 'span[class^="last-JWoJqCpY"]>span'],
-      ["gold_delta", 'div[class^="change-JWoJqCpY"]>span:nth-child(1)'],
-      ["gold_delta_pt", 'div[class^="change-JWoJqCpY"]>span:nth-child(2)'],
+      ["gold_spot", 'div[data-test="instrument-price-last"]'],
+      ["gold_delta", 'span[data-test="instrument-price-change"]'],
+      ["gold_delta_pt", 'span[data-test="instrument-price-change-percent"]'],
     ],
   ],
   // USD_EGP
