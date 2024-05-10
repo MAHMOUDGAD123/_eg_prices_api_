@@ -729,137 +729,6 @@ const map = [
     "https://www.google.com/finance/quote/USD-EGP",
     [["usd_egp", 'div[class="YMlKec fxKbKc"]']],
   ],
-
-  // eur-egp
-  [
-    "https://www.google.com/finance/quote/EUR-EGP",
-    [["eur_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // gbp-egp
-  [
-    "https://www.google.com/finance/quote/GBP-EGP",
-    [["gbp_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // sar-egp
-  [
-    "https://www.google.com/finance/quote/SAR-EGP",
-    [["gbp_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // aed-egp
-  [
-    "https://www.google.com/finance/quote/AED-EGP",
-    [["aed_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // kwd-egp
-  [
-    "https://www.google.com/finance/quote/KWD-EGP",
-    [["kwd_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // omr-egp
-  [
-    "https://www.google.com/finance/quote/OMR-EGP",
-    [["omr_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // cny-egp
-  [
-    "https://www.google.com/finance/quote/CNY-EGP",
-    [["cny_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // qar-egp
-  [
-    "https://www.google.com/finance/quote/QAR-EGP",
-    [["qar_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // bhd-egp
-  [
-    "https://www.google.com/finance/quote/BHD-EGP",
-    [["bhd_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // jod-egp
-  [
-    "https://www.google.com/finance/quote/JOD-EGP",
-    [["jod_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // cad-egp
-  [
-    "https://www.google.com/finance/quote/CAD-EGP",
-    [["cad_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // aud-egp
-  [
-    "https://www.google.com/finance/quote/AUD-EGP",
-    [["aud_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // jpy-egp
-  [
-    "https://www.google.com/finance/quote/JPY-EGP",
-    [["jpy_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // chf-egp
-  [
-    "https://www.google.com/finance/quote/CHF-EGP",
-    [["chf_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // sek-egp
-  [
-    "https://www.google.com/finance/quote/SEK-EGP",
-    [["sek_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // nok-egp
-  [
-    "https://www.google.com/finance/quote/NOK-EGP",
-    [["nok_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // dkk-egp
-  [
-    "https://www.google.com/finance/quote/DKK-EGP",
-    [["dkk_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // try-egp
-  [
-    "https://www.google.com/finance/quote/TRY-EGP",
-    [["try_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // lyd-egp
-  [
-    "https://www.google.com/finance/quote/LYD-EGP",
-    [["lyd_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // dzd-egp
-  [
-    "https://www.google.com/finance/quote/DZD-EGP",
-    [["dzd_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // mad-egp
-  [
-    "https://www.google.com/finance/quote/MAD-EGP",
-    [["mad_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // tnd-egp
-  [
-    "https://www.google.com/finance/quote/TND-EGP",
-    [["tnd_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // rub-egp
-  [
-    "https://www.google.com/finance/quote/RUB-EGP",
-    [["rub_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // brl-egp
-  [
-    "https://www.google.com/finance/quote/BRL-EGP",
-    [["brl_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // iqd-egp
-  [
-    "https://www.google.com/finance/quote/IQD-EGP",
-    [["iqd_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
-  // zar-egp
-  [
-    "https://www.google.com/finance/quote/ZAR-EGP",
-    [["zar_egp", 'div[class="YMlKec fxKbKc"]']],
-  ],
 ];
 
 // get data
@@ -993,6 +862,51 @@ app.listen(port, () => {
   [
     "https://www.google.com/finance/quote/DKK-EGP",
     [["dkk_egp", 'div[class="YMlKec fxKbKc"]']],
+  ],
+  // try-egp
+  [
+    "https://www.google.com/finance/quote/TRY-EGP",
+    [["try_egp", 'div[class="YMlKec fxKbKc"]']],
+  ],
+  // lyd-egp
+  [
+    "https://www.google.com/finance/quote/LYD-EGP",
+    [["lyd_egp", 'div[class="YMlKec fxKbKc"]']],
+  ],
+  // dzd-egp
+  [
+    "https://www.google.com/finance/quote/DZD-EGP",
+    [["dzd_egp", 'div[class="YMlKec fxKbKc"]']],
+  ],
+  // mad-egp
+  [
+    "https://www.google.com/finance/quote/MAD-EGP",
+    [["mad_egp", 'div[class="YMlKec fxKbKc"]']],
+  ],
+  // tnd-egp
+  [
+    "https://www.google.com/finance/quote/TND-EGP",
+    [["tnd_egp", 'div[class="YMlKec fxKbKc"]']],
+  ],
+  // rub-egp
+  [
+    "https://www.google.com/finance/quote/RUB-EGP",
+    [["rub_egp", 'div[class="YMlKec fxKbKc"]']],
+  ],
+  // brl-egp
+  [
+    "https://www.google.com/finance/quote/BRL-EGP",
+    [["brl_egp", 'div[class="YMlKec fxKbKc"]']],
+  ],
+  // iqd-egp
+  [
+    "https://www.google.com/finance/quote/IQD-EGP",
+    [["iqd_egp", 'div[class="YMlKec fxKbKc"]']],
+  ],
+  // zar-egp
+  [
+    "https://www.google.com/finance/quote/ZAR-EGP",
+    [["zar_egp", 'div[class="YMlKec fxKbKc"]']],
   ],
 
 */
