@@ -4,7 +4,7 @@ const cors = require("cors");
 const port = process.env.PORT || 3000;
 
 // url => [ [porperty, selection], .....]
-const prices_map = [
+const map = [
   // gold & silver
   [
     "https://egcurrency.com/en/country/egypt",
@@ -329,52 +329,36 @@ const prices_map = [
     "https://www.investing.com/crypto/tether/usdt-egp",
     [["usdt_egp", 'div[data-test="instrument-price-last"]']],
   ],
-];
-
-const live_map = [
-  // GOLD TV
-  [
-    "https://www.investing.com/currencies/xau-usd",
-    [
-      ["gold_spot", 'div[data-test="instrument-price-last"]'],
-      ["gold_delta", 'span[data-test="instrument-price-change"]'],
-      ["gold_delta_pt", 'span[data-test="instrument-price-change-percent"]'],
-    ],
-  ],
   // USD_EGP
   [
     "https://www.investing.com/currencies/usd-egp",
-    [
-      ["usd_egp", 'div[data-test="instrument-price-last"]'],
-      ["usd_egp_delta", 'span[data-test="instrument-price-change"]'],
-      ["usd_egp_delta_pt", 'span[data-test="instrument-price-change-percent"]'],
-    ],
+    [["usd_egp", 'div[data-test="instrument-price-last"]']],
   ],
   // USD-EGPp
   [
     "https://www.investing.com/currencies/usd-egpp",
-    [
-      ["usd_egpp", 'div[data-test="instrument-price-last"]'],
-      ["usd_egpp_delta", 'span[data-test="instrument-price-change"]'],
-      [
-        "usd_egpp_delta_pt",
-        'span[data-test="instrument-price-change-percent"]',
-      ],
-    ],
+    [["usd_egpp", 'div[data-test="instrument-price-last"]']],
+  ],
+];
+
+const _map = [
+  [
+    "https://www.investing.com/currencies/usd-egpp",
+    [["usd_egpp", 'div[data-test="instrument-price-last"]']],
   ],
 ];
 
 // get data
 const get_html = async (url) => {
   const res = await fetch(url);
-  return res.ok ? await res.text() : null;
+  return res.ok ? res.text() : null;
 };
 
 const get_prices = async () => {
   const prices = {};
 
   try {
-    for (const [url, prop_sel] of prices_map) {
+    for (const [url, prop_sel] of map) {
       const html = await get_html(url);
 
       if (html) {
@@ -393,47 +377,16 @@ const get_prices = async () => {
   return prices;
 };
 
-const get_live = async () => {
-  const prices = {};
-
-  try {
-    for (const [url, prop_sel] of live_map) {
-      const html = await get_html(url);
-
-      if (html) {
-        const $ = cheerio.load(html);
-
-        for (const [prop, sel] of prop_sel) {
-          prices[prop] = $(sel).text();
-        }
-      }
-    }
-    console.error("SUCCESS ✅");
-  } catch (e) {
-    console.error("ERROR ❌: ", e.message);
-    return null;
-  }
-  return prices;
-};
-
-const prices_handler = async (req, res) => {
+const handler = async (req, res) => {
   res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   const response = await get_prices();
   const code = response ? 200 : 404;
   res.status(code).json(response);
 };
 
-const live_handler = async (req, res) => {
-  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-  const response = await get_live();
-  const code = response ? 200 : 404;
-  res.status(code).json(response);
-};
-
 app.use(cors());
-app.get("/", prices_handler);
-app.get("/prices", prices_handler);
-app.get("/live", live_handler);
+app.get("/", handler);
+app.get("/prices", handler);
 
 app.listen(port, () => {
   console.log("Listening on port: " + port);
