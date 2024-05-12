@@ -326,22 +326,17 @@ const map = [
   ],
   // usdt
   [
-    "https://www.investing.com/crypto/tether/usdt-egp",
-    [["usdt_egp", 'div[data-test="instrument-price-last"]']],
+    "https://www.google.com/finance/quote/USDT-EGP",
+    [["usdt_egp", 'div[class^="YMlKec fxKbKc"]']],
   ],
   // USD_EGP
   [
     "https://www.investing.com/currencies/usd-egp",
     [["usd_egp", 'div[data-test="instrument-price-last"]']],
+    // "https://www.google.com/finance/quote/USD-EGP",
+    // [["usd_egp", 'div[class="YMlKec fxKbKc"]']],
   ],
   // USD-EGPp
-  [
-    "https://www.investing.com/currencies/usd-egpp",
-    [["usd_egpp", 'div[data-test="instrument-price-last"]']],
-  ],
-];
-
-const _map = [
   [
     "https://www.investing.com/currencies/usd-egpp",
     [["usd_egpp", 'div[data-test="instrument-price-last"]']],
