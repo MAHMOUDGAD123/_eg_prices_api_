@@ -334,7 +334,7 @@ const map = [
     "https://www.investing.com/currencies/usd-egp",
     [["usd_egp", 'div[data-test="instrument-price-last"]']],
     // "https://www.google.com/finance/quote/USD-EGP",
-    // [["usd_egp", 'div[class="YMlKec fxKbKc"]']],
+    // [["usd_egp", 'div[class^="YMlKec fxKbKc"]']],
   ],
   // USD-EGPp
   [
@@ -343,28 +343,66 @@ const map = [
   ],
 ];
 
+const live = [
+  [
+    "https://www.investing.com/currencies/xau-usd",
+    [
+      [
+        "xau_usd",
+        'div[data-test="instrument-header-details"] div[data-test="instrument-price-last"]',
+      ],
+      [
+        "xau_usd_delta",
+        'div[data-test="instrument-header-details"] [data-test="instrument-price-change"]',
+      ],
+      [
+        "xau_usd_delta_pt",
+        'div[data-test="instrument-header-details"] [data-test="instrument-price-change-percent"]',
+      ],
+    ],
+  ],
+];
+
 // get data
 const get_html = async (url) => {
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true,
+      "Access-Control-Allow-Methods": "POST, GET",
+    },
+  });
   return res.ok ? res.text() : null;
 };
 
 const get_prices = async () => {
   const prices = {};
-
   try {
     for (const [url, prop_sel] of map) {
-      const html = await get_html(url);
+      const _url = new URL(url);
+      const html = await get_html(_url);
 
       if (html) {
+        console.log("-->", _url.hostname, "✔️");
+        console.log("----------------------------");
         const $ = cheerio.load(html);
 
         for (const [prop, sel] of prop_sel) {
-          prices[prop] = Number.parseFloat($(sel).text().replace(",", ""));
+          const ele = $(sel);
+          if (ele) {
+            prices[prop] = Number.parseFloat(ele.text().replace(",", ""));
+            console.log(prop, "✅");
+          } else {
+            console.log(prop, "❌");
+          }
         }
+      } else {
+        console.log(_url.hostname, "✖️");
       }
+      console.log("----------------------------\n");
     }
-    console.error("SUCCESS ✅");
+    console.error("SUCCESS 🆗\n");
   } catch (e) {
     console.error("ERROR ❌: ", e.message);
     return null;
@@ -372,19 +410,61 @@ const get_prices = async () => {
   return prices;
 };
 
-const handler = async (req, res) => {
+const get_live = async () => {
+  const prices = {};
+  try {
+    for (const [url, prop_sel] of live) {
+      const _url = new URL(url);
+      const html = await get_html(_url);
+
+      if (html) {
+        console.log("-->", _url.hostname, "✔️");
+        console.log("----------------------------");
+        const $ = cheerio.load(html);
+
+        for (const [prop, sel] of prop_sel) {
+          const ele = $(sel);
+          if (ele) {
+            prices[prop] = ele.text().replace(/[(),]/g, "");
+            console.log("-", prop, "✅");
+          } else {
+            console.log(prop, "✖️");
+          }
+        }
+      } else {
+        console.log("HTML ❌");
+      }
+      console.log("----------------------------");
+    }
+    console.error("SUCCESS 🆗\n");
+  } catch (e) {
+    console.error("ERROR ❌: ", e.message);
+    return null;
+  }
+  return prices;
+};
+
+const prices_handler = async (_, res) => {
   res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   const response = await get_prices();
   const code = response ? 200 : 404;
   res.status(code).json(response);
 };
 
+const live_handler = async (_, res) => {
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  const response = await get_live();
+  const code = response ? 200 : 404;
+  res.status(code).json(response);
+};
+
 app.use(cors());
-app.get("/", handler);
-app.get("/prices", handler);
+app.get("/", prices_handler);
+app.get("/prices", prices_handler);
+app.get("/live", live_handler);
 
 app.listen(port, () => {
-  console.log("Listening on port: " + port);
+  console.log("Listening on port: " + port, "\n");
 });
 
 /* old map
