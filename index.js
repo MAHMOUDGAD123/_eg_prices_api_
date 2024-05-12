@@ -12,7 +12,7 @@ const map = [
       // gold
       ["usd_gold", 'a[href="/en/currency/usd-to-egp/gold"]>b'],
       ["goldO_usd", 'a[href="/en/gold/gold-ounce-in-usd"]>b'],
-      ["goldO_euro", 'a[href="/en/gold/gold-ounce-in-eur"]>b'],
+      ["goldO_eur", 'a[href="/en/gold/gold-ounce-in-eur"]>b'],
       [
         "goldO_egp_b",
         'tr[data-href="/en/gold/gold-ounce-in-egp"]>td:nth-child(2)',
