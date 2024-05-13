@@ -384,25 +384,25 @@ const get_prices = async () => {
       const html = await get_html(_url);
 
       if (html) {
-        console.log("-->", _url.hostname, "✔️");
-        console.log("----------------------------");
+        // console.log("-->", _url.hostname, "✔️");
+        // console.log("----------------------------");
         const $ = cheerio.load(html);
 
         for (const [prop, sel] of prop_sel) {
           const ele = $(sel);
           if (ele) {
             prices[prop] = Number.parseFloat(ele.text().replace(",", ""));
-            console.log(prop, "✅");
+            // console.log(prop, "✅");
           } else {
-            console.log(prop, "❌");
+            // console.log(prop, "❌");
           }
         }
       } else {
-        console.log(_url.hostname, "✖️");
+        // console.log(_url.hostname, "✖️");
       }
-      console.log("----------------------------\n");
+      // console.log("----------------------------\n");
     }
-    console.error("SUCCESS 🆗\n");
+    // console.error("SUCCESS 🆗\n");
   } catch (e) {
     console.error("ERROR ❌: ", e.message);
     return null;
@@ -418,25 +418,25 @@ const get_live = async () => {
       const html = await get_html(_url);
 
       if (html) {
-        console.log("-->", _url.hostname, "✔️");
-        console.log("----------------------------");
+        // console.log("-->", _url.hostname, "✔️");
+        // console.log("----------------------------");
         const $ = cheerio.load(html);
 
         for (const [prop, sel] of prop_sel) {
           const ele = $(sel);
           if (ele) {
             prices[prop] = ele.text().replace(/[(),]/g, "");
-            console.log("-", prop, "✅");
+            // console.log("-", prop, "✅");
           } else {
-            console.log(prop, "✖️");
+            // console.log(prop, "✖️");
           }
         }
       } else {
-        console.log("HTML ❌");
+        // console.log(_url.hostname, "✖️");
       }
-      console.log("----------------------------");
+      // console.log("----------------------------");
     }
-    console.error("SUCCESS 🆗\n");
+    // console.error("SUCCESS 🆗\n");
   } catch (e) {
     console.error("ERROR ❌: ", e.message);
     return null;
