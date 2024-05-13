@@ -425,7 +425,7 @@ const get_live = async () => {
         for (const [prop, sel] of prop_sel) {
           const ele = $(sel);
           if (ele) {
-            prices[prop] = ele.text().replace(/[(),]/g, "");
+            prices[prop] = ele.text().replace(",", "");
             // console.log("-", prop, "✅");
           } else {
             // console.log(prop, "✖️");
