@@ -329,21 +329,10 @@ const map = [
     "https://www.google.com/finance/quote/USDT-EGP",
     [["usdt_egp", 'div[class^="YMlKec fxKbKc"]']],
   ],
-  // USD_EGP
-  [
-    "https://www.investing.com/currencies/usd-egp",
-    [["usd_egp", 'div[data-test="instrument-price-last"]']],
-    // "https://www.google.com/finance/quote/USD-EGP",
-    // [["usd_egp", 'div[class^="YMlKec fxKbKc"]']],
-  ],
-  // USD-EGPp
-  [
-    "https://www.investing.com/currencies/usd-egpp",
-    [["usd_egpp", 'div[data-test="instrument-price-last"]']],
-  ],
 ];
 
 const live = [
+  // XAU-USD
   [
     "https://www.investing.com/currencies/xau-usd",
     [
@@ -357,6 +346,42 @@ const live = [
       ],
       [
         "xau_usd_delta_pt",
+        'div[data-test="instrument-header-details"] [data-test="instrument-price-change-percent"]',
+      ],
+    ],
+  ],
+  // USD_EGP
+  [
+    "https://www.investing.com/currencies/usd-egp",
+    [
+      [
+        "usd_egp",
+        'div[data-test="instrument-header-details"] div[data-test="instrument-price-last"]',
+      ],
+      [
+        "usd_egp_delta",
+        'div[data-test="instrument-header-details"] [data-test="instrument-price-change"]',
+      ],
+      [
+        "usd_egp_delta_pt",
+        'div[data-test="instrument-header-details"] [data-test="instrument-price-change-percent"]',
+      ],
+    ],
+  ],
+  // USD-EGPp
+  [
+    "https://www.investing.com/currencies/usd-egpp",
+    [
+      [
+        "usd_egpp",
+        'div[data-test="instrument-header-details"] div[data-test="instrument-price-last"]',
+      ],
+      [
+        "usd_egpp_delta",
+        'div[data-test="instrument-header-details"] [data-test="instrument-price-change"]',
+      ],
+      [
+        "usd_egpp_delta_pt",
         'div[data-test="instrument-header-details"] [data-test="instrument-price-change-percent"]',
       ],
     ],
