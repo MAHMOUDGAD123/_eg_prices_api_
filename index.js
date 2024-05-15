@@ -10,7 +10,7 @@ const map = [
     "https://egcurrency.com/en/country/egypt",
     [
       // gold
-      ["usd_gold", 'a[href="/en/currency/usd-to-egp/gold"]>b'],
+      ["sagha_usd", 'a[href="/en/currency/usd-to-egp/gold"]>b'],
       ["goldO_usd", 'a[href="/en/gold/gold-ounce-in-usd"]>b'],
       ["goldO_eur", 'a[href="/en/gold/gold-ounce-in-eur"]>b'],
       [
@@ -149,6 +149,20 @@ const map = [
       [
         "silOZ_egp_s",
         'tr[data-href="/en/silver/silver-ounce-in-egp"]>td:nth-child(3)',
+      ],
+    ],
+  ],
+  // sagha usd
+  [
+    "https://egcurrency.com/en/currency/egp/gold",
+    [
+      [
+        "sagha_usd_b",
+        'tr[data-href="/en/currency/usd-to-egp/gold"]>td:nth-child(2)',
+      ],
+      [
+        "sagha_usd_s",
+        'tr[data-href="/en/currency/usd-to-egp/gold"]>td:nth-child(3)',
       ],
     ],
   ],
