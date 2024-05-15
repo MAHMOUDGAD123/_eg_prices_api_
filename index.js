@@ -400,12 +400,10 @@ const live = [
       ],
     ],
   ],
+  // Sagha-USD
   [
     "https://egcurrency.com/en/country/egypt",
-    [
-      // gold
-      ["sagha_usd", 'a[href="/en/currency/usd-to-egp/gold"]>b'],
-    ],
+    [["sagha_usd", 'a[href="/en/currency/usd-to-egp/gold"]>b']],
   ],
 ];
 
