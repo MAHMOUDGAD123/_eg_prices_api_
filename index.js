@@ -400,6 +400,13 @@ const live = [
       ],
     ],
   ],
+  [
+    "https://egcurrency.com/en/country/egypt",
+    [
+      // gold
+      ["sagha_usd", 'a[href="/en/currency/usd-to-egp/gold"]>b'],
+    ],
+  ],
 ];
 
 // get data
